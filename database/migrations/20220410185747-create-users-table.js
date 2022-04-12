@@ -55,6 +55,10 @@ module.exports = {
 				type: Sequelize.DATE
 			}
 		});
+
+		await queryInterface.addIndex("users", {
+			fields: ["role"]
+		})
 	},
 
 	/**

@@ -18,7 +18,7 @@ module.exports = asyncHandler(async (req, res) => {
 	if (!user) {
 		return res
 			.status(StatusCodes.NOT_FOUND)
-			.json({ message: "Email address is incorrect" });
+			.json({ email: "Email address is incorrect" });
 	}
 
 	const passwordMatched = await user.comparePassword(password);
@@ -26,12 +26,12 @@ module.exports = asyncHandler(async (req, res) => {
 	if (!passwordMatched) {
 		return res
 			.status(StatusCodes.BAD_REQUEST)
-			.json({ message: "Password is incorrect" });
+			.json({ password: "Password is incorrect" });
 	}
 
 	if (user.status === BANNED) {
 		return res.status(StatusCodes.BAD_REQUEST).json({
-			message: "This account is not authorized to use this service"
+			email: "This account is not authorized to use this service"
 		});
 	}
 

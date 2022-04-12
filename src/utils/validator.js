@@ -1,4 +1,7 @@
 const { validationResult } = require("express-validator");
+const { StatusCodes } = require("http-status-codes");
+const { Op } = require("sequelize");
+const models = require("../models");
 
 const isValidated = rules => {
 	return [
@@ -17,6 +20,26 @@ const isValidated = rules => {
 	];
 };
 
+const isUniqueUserEmail =
+	(includingCurrentUser = true) =>
+	async (email, { req }) => {
+		const user = await models.user.findOne({
+			attributes: ["id"],
+			where: {
+				...(!includingCurrentUser && {
+					id: {
+						[Op.ne]: req.user.id
+					}
+				}),
+				email
+			},
+			raw: true
+		});
+
+		if (user) throw new Error("This email address is already in use");
+		return true;
+	};
+
 const minLengthMessage = (label, min) => {
 	return `${label} must be minimum ${min} characters long`;
 };
@@ -28,5 +51,6 @@ const maxLengthMessage = (label, max) => {
 module.exports = {
 	isValidated,
 	minLengthMessage,
-	maxLengthMessage
+	maxLengthMessage,
+	isUniqueUserEmail
 };
