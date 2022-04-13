@@ -36,8 +36,10 @@ module.exports = asyncHandler(async (req, res) => {
 	}
 
 	const authToken = generateAuthToken(user);
-  const authUser = await getAuthUser(user.id);
+	const authUser = await getAuthUser(user.id);
 
+	console.log(authUser);
+	
 	return res.json({
 		token: authToken,
 		user: authUser

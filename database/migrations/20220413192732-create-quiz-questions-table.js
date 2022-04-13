@@ -9,7 +9,7 @@ module.exports = {
 	 */
 	up: async (queryInterface, Sequelize) => {
 		await queryInterface.createTable(
-			"users",
+			"quizQuestions",
 			{
 				id: {
 					allowNull: false,
@@ -17,36 +17,19 @@ module.exports = {
 					primaryKey: true,
 					type: Sequelize.INTEGER
 				},
-				name: {
-					allowNull: true,
-					type: Sequelize.STRING(100)
-				},
-				email: {
+				courseId: {
 					allowNull: false,
-					type: Sequelize.STRING(100),
-					unique: true
+					references: {
+						key: "id",
+						model: "courses"
+					},
+					onDelete: "CASCADE",
+					onUpdate: "CASCADE",
+					type: Sequelize.INTEGER
 				},
-				password: {
+				question: {
 					allowNull: false,
-					type: Sequelize.STRING
-				},
-				status: {
-					allowNull: false,
-					type: Sequelize.ENUM(["banned", "approved"]),
-					defaultValue: "approved"
-				},
-				role: {
-					allowNull: false,
-					type: Sequelize.ENUM(["admin", "teacher", "student"]),
-					defaultValue: "student"
-				},
-				contact: {
-					allowNull: true,
-					type: Sequelize.STRING(100)
-				},
-				lastLoginAt: {
-					allowNull: true,
-					type: Sequelize.DATE
+					type: Sequelize.STRING(255)
 				},
 				createdAt: {
 					allowNull: false,
@@ -62,10 +45,6 @@ module.exports = {
 				collate: "utf8mb4_bin"
 			}
 		);
-
-		await queryInterface.addIndex("users", {
-			fields: ["role"]
-		});
 	},
 
 	/**
@@ -73,6 +52,6 @@ module.exports = {
 	 * @param {seq} sequelize
 	 */
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable("users");
+		await queryInterface.dropTable("quizQuestions");
 	}
 };

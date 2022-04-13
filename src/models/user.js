@@ -68,6 +68,17 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	);
 
+	User.associate = models => {
+		User.hasMany(models.course, {
+			foreignKey: "creatorId",
+			otherKey: "id",
+			as: {
+				singular: "course",
+				plural: "courses"
+			}
+		});
+	};
+
 	User.prototype.comparePassword = function (password) {
 		// note: remember to add unscoped() to the user query
 		return bcrypt.compare(password, this.getDataValue("password"));
