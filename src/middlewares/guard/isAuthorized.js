@@ -1,8 +1,7 @@
 const { ADMIN, TEACHER, STUDENT } = require("../../utils/const");
 const UnauthenticatedError = require("../../error/Unauthenticated.error");
-const InvalidRequestError = require("../error/InvalidRequest.error");
 const UnauthorizedError = require("../../error/Unauthorized.error");
-const getBrandUserRole = require("../userBrand/getBrandUserRole");
+const getUserRole = require("../../packages/profile/getUserRole");
 
 module.exports = (...grantedRoles) =>
 	async (req, res, next) => {
@@ -12,14 +11,10 @@ module.exports = (...grantedRoles) =>
 			return next(new UnauthenticatedError("You need to sign in first"));
 		}
 
-		if (!req.params?.brandId) {
-			return next(new InvalidRequestError("Missing required parameter: brand"));
-		}
-
-		const role = await getBrandUserRole(
+		const role = await getUserRole(
 			req.user.id,
 			req.params.brandId,
-			grantedRoles
+			...grantedRoles
 		);
 
 		if (!role) {
