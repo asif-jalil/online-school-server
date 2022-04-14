@@ -3,14 +3,13 @@ const isAuthenticated = require("../../middlewares/guard/isAuthenticated");
 const isAuthorized = require("../../middlewares/guard/isAuthorized");
 const { TEACHER } = require("../../utils/const");
 const { isValidated } = require("../../utils/validator");
-const course = require("./course");
 const create = require("./create");
 const createRules = require("./create.rules");
 
-const courseRoutes = Router();
+const quizRoutes = Router();
 
-// Create course
-courseRoutes.post(
+// Create quiz
+quizRoutes.post(
 	"/",
 	isAuthenticated,
 	isAuthorized([TEACHER]),
@@ -18,7 +17,4 @@ courseRoutes.post(
 	create
 );
 
-// Get course by domain
-courseRoutes.get("/:domain", isAuthenticated, course);
-
-module.exports = courseRoutes;
+module.exports = quizRoutes;

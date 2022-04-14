@@ -11,6 +11,12 @@ module.exports = {
 		await queryInterface.createTable(
 			"quizAnswers",
 			{
+				id: {
+					allowNull: false,
+					autoIncrement: true,
+					primaryKey: true,
+					type: Sequelize.INTEGER
+				},
 				questionId: {
 					allowNull: false,
 					references: {

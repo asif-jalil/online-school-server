@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
 				allowNull: false,
 				type: DataTypes.STRING(255)
 			},
+			answer: {
+				allowNull: false,
+				type: DataTypes.BOOLEAN
+			},
 			createdAt: {
 				allowNull: false,
 				type: DataTypes.DATE
@@ -44,11 +48,11 @@ module.exports = (sequelize, DataTypes) => {
 			as: "question"
 		});
 
-		Option.hasOne(models.quizAnswer, {
-			foreignKey: "optionId",
-			otherKey: "questionId",
-			as: "answer"
-		});
+		// Option.hasOne(models.quizAnswer, {
+		// 	foreignKey: "optionId",
+		// 	otherKey: "questionId",
+		// 	as: "quizAnswer"
+		// });
 	};
 
 	return Option;

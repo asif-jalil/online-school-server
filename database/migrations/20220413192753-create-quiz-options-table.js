@@ -31,6 +31,10 @@ module.exports = {
 					allowNull: false,
 					type: Sequelize.STRING(255)
 				},
+				answer: {
+					allowNull: false,
+					type: Sequelize.BOOLEAN
+				},
 				createdAt: {
 					allowNull: false,
 					type: Sequelize.DATE
@@ -45,6 +49,10 @@ module.exports = {
 				collate: "utf8mb4_bin"
 			}
 		);
+
+		await queryInterface.addIndex("quizOptions", {
+			fields: ["questionId", "answer"]
+		});
 	},
 
 	/**
