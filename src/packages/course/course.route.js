@@ -8,6 +8,7 @@ const createRules = require("./create.rules");
 
 const courseRoutes = Router();
 
+// Create course
 courseRoutes.post(
 	"/",
 	isAuthenticated,

@@ -33,12 +33,11 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			tableName: "quizOptions",
-			timestamps: true,
-			updatedAt: false
+			timestamps: true
 		}
-  );
+	);
 
-  Option.associate = models => {
+	Option.associate = models => {
 		Option.belongsTo(models.quizQuestion, {
 			foreignKey: "questionId",
 			otherKey: "id",
@@ -46,11 +45,11 @@ module.exports = (sequelize, DataTypes) => {
 		});
 
 		Option.hasOne(models.quizAnswer, {
-      foreignKey: "optionId",
-      otherKey: "questionId",
-      as: "answer"
-    })
+			foreignKey: "optionId",
+			otherKey: "questionId",
+			as: "answer"
+		});
 	};
-  
-  return Option;
+
+	return Option;
 };

@@ -33,24 +33,23 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			tableName: "quizAnswers",
-			timestamps: true,
-			updatedAt: false
+			timestamps: true
 		}
-  );
-  
-  Answer.associate = models => {
-    Answer.belongsTo(models.quizQuestion, {
-			foreignKey: "questionId",
-			otherKey: "optionId",
-			as: "question"
-    });
-    
-    Answer.belongsTo(models.quizOption, {
-			foreignKey: "optionId",
-			otherKey: "questionId",
-			as: "question"
-		});
-  }
+	);
+
+	// Answer.associate = models => {
+	//   Answer.belongsTo(models.quizQuestion, {
+	// 		foreignKey: "questionId",
+	// 		otherKey: "optionId",
+	// 		as: "question"
+	//   });
+
+	//   Answer.belongsTo(models.quizOption, {
+	// 		foreignKey: "optionId",
+	// 		otherKey: "questionId",
+	// 		as: "question"
+	// 	});
+	// }
 
 	return Answer;
 };

@@ -33,8 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			tableName: "quizQuestions",
-			timestamps: true,
-			updatedAt: false
+			timestamps: true
 		}
 	);
 
@@ -43,22 +42,22 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: "courseId",
 			otherKey: "id",
 			as: "course"
-    });
+		});
 
-    Question.hasMany(models.quizOption, {
-      foreignKey: "questionId",
-      otherKey: "id",
-      as: {
-        singular: "option",
-        plural: "options"
-      }
-    });
+		Question.hasMany(models.quizOption, {
+			foreignKey: "questionId",
+			otherKey: "id",
+			as: {
+				singular: "option",
+				plural: "options"
+			}
+		});
 
-    Question.hasOne(models.quizAnswer, {
-      foreignKey: "questionId",
-      otherKey: "optionId",
-      as: "answer"
-    })
+		Question.hasOne(models.quizAnswer, {
+			foreignKey: "questionId",
+			otherKey: "optionId",
+			as: "answer"
+		});
 	};
 
 	return Question;
