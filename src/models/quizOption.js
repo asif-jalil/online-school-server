@@ -48,11 +48,11 @@ module.exports = (sequelize, DataTypes) => {
 			as: "question"
 		});
 
-		// Option.hasOne(models.quizAnswer, {
-		// 	foreignKey: "optionId",
-		// 	otherKey: "questionId",
-		// 	as: "quizAnswer"
-		// });
+		Option.hasOne(models.quizAnswer, {
+			foreignKey: "optionId",
+			otherKey: "questionId",
+			as: "quizAnswer"
+		});
 	};
 
 	return Option;
